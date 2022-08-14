@@ -5,21 +5,25 @@ var SALT_WORK_FACTOR = 10;
 const dataSchema = new mongoose.Schema({
   nama: {
     required: true,
+    trim: true,
     type: String
   },
   no_hp: {
     required: true,
+    trim: true,
     type: String,
   },
   email: {
     required: true,
+    trim: true,
     type: String
   },
   password: {
     required: true,
+    trim: true,
     type: String
   }
-})
+}, { timestamps: true })
 
 dataSchema.pre("save", function(next) {
 
@@ -62,16 +66,5 @@ dataSchema.pre("findOneAndUpdate", async function(next) {
       return next(err);
   }
 })
-
-// dataSchema.methods.comparePassword = function(usersInput, callback) {
-//   bcrypt.compare(usersInput, user.password, function(error, isMatch) {
-//     if (error) {
-//       return callback(error)
-//     }
-//     else {
-//       callback(null, isMatch)
-//     }
-//   })
-// }
 
 module.exports = mongoose.model('User', dataSchema)
